@@ -1,23 +1,4 @@
-<style>
-  a,
-  a:link,
-  a:visited,
-  a:hover,
-  a:active,
-  a:focus,
-  .markdown-body a,
-  .vscode-body a,
-  .vscode-dark a,
-  .vscode-light a,
-  body a {
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    -webkit-text-decoration-line: none !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-    background-image: none !important;
-  }
-</style>
+
 
 <div align="center">
   <img src="./assets/branding/logo.svg" alt="MemorizeMe Logo" width="420" />
