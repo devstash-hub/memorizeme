@@ -9,12 +9,14 @@ A modern, responsive, mobile-first, and framework-agnostic frontend structure re
 ```text
 frontend/
 ├── public/                      # Static assets, PWA manifest, and app icons
+│   ├── favicon.svg              # App icon
 │   └── manifest.json            # PWA standalone mobile configuration
 ├── src/
 │   ├── assets/
 │   │   └── styles/
 │   │       ├── safe-area.css    # Mobile notch, home-bar & touch padding variables
-│   │       └── main.css         # Global reset, CJK typography, and 3D flip card styles
+│   │       ├── main.css         # Global reset, CJK typography, and 3D flip card styles
+│   │       └── study.css        # Study view layout, glowing borders, and SM-2 buttons
 │   ├── core/                    # 100% Framework-Agnostic Core Logic (Pure TypeScript)
 │   │   ├── api/                 # Typed API client connected to FastAPI backend
 │   │   │   ├── client.ts        # Fetch client with auto Supabase JWT Bearer injection
@@ -33,11 +35,35 @@ frontend/
 │   │       ├── gestures.ts      # Mobile touch swipe detector for study cards
 │   │       └── ime.ts           # Japanese / CJK IME composition detection helper
 │   ├── components/              # UI Component scaffolding (common, decks, cards, study)
-│   └── views/                   # Application pages (auth, decks, study, explore)
-├── index.html                   # HTML entrypoint with mobile viewport-fit=cover
+│   └── views/
+│       ├── auth/
+│       │   └── auth_page.js     # Supabase Auth controller (login, register, social auth)
+│       ├── study/
+│       │   └── study_page.js    # Interactive Study Engine (3D flip, ratings, audio, gestures)
+│       └── README.md
+├── index.html                   # Interactive Study Page v1 (open directly in browser)
+├── login.html                   # Authentication & Login Page (open directly in browser)
 ├── .env.example                 # Environment variables template
 └── .gitignore                   # Node / web build ignore rules
 ```
+
+---
+
+## ⚡ Quick Test: Interactive Pages (No Build Step Required)
+
+You can preview and test the complete frontend experience immediately:
+1. **Study Page v1**: Open [`frontend/index.html`](./index.html) in your browser.
+2. **Login / Register Page**: Open [`frontend/login.html`](./login.html) in your browser.
+3. **Features active**:
+   - **Auth Controller**: Mode toggle between *Entrar*, *Criar Conta*, and *Recuperar Senha*.
+   - **Social Login**: Google & GitHub options wired to Supabase Auth.
+   - **3D Card Flip**: Smooth 3D animation on click, Space, or Enter.
+   - **Visual Identity**: Gradient indigo (`#6366f1` to `#4338ca`) and sky blue (`#38bdf8`) inspired directly by the logo.
+   - **Japanese / CJK Support**: Live demonstration with Kanji & Furigana (`<ruby>日本語<rt>にほんご</rt></ruby>`).
+   - **Audio Pronunciation**: Click the speaker icon to hear native pronunciation via Web Speech API.
+   - **SM-2 Evaluation**: 4 rating buttons (`Errei`, `Difícil`, `Bom`, `Fácil`) with keyboard shortcuts (`1` to `4`).
+   - **Mobile Gestures**: Swipe right for "Good", swipe left for "Blackout / Errei".
+   - **Session Report**: Instant accuracy, cards reviewed, and time breakdown upon queue completion.
 
 ---
 

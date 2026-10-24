@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- viewport-fit=cover is essential for mobile safe area insets (notches & home bars) -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
@@ -10,21 +9,191 @@
     <meta name="theme-color" content="#4f46e5" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>MemorizeMe - Active Recall & Flashcards</title>
-    <!-- Preload CJK and Latin optimized typography -->
+    <link rel="manifest" href="./public/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+    <title>MemorizeMe - Study Mode</title>
+
+    <!-- Google Fonts: Inter & Noto Sans JP (for CJK / Japanese Furigana typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/src/assets/styles/main.css" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/assets/styles/main.css" />
+    <link rel="stylesheet" href="./src/assets/styles/study.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <noscript>Please enable JavaScript to use MemorizeMe.</noscript>
+    <main class="study-container">
+      <!-- Top Navigation & Deck Header -->
+      <header class="study-header">
+        <a href="./index.html" class="brand-badge" title="MemorizeMe">
+          <img src="./public/favicon.svg" alt="MemorizeMe Icon" />
+          <span>Memorize<span style="color: #818cf8;">Me</span></span>
+        </a>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="deck-info">
+            <span class="deck-title" id="deckTitle">Japanese N5 Core Vocabulary</span>
+            <span class="card-counter" id="cardCounter">Card 1 of 4</span>
+          </div>
+          <a href="./login.html" class="audio-btn" title="Sign In / Account" aria-label="User Account" style="text-decoration: none;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Spaced Repetition Session Progress Bar -->
+      <div class="progress-container" aria-label="Session Progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <!-- 3D Flip Flashcard Interactive Stage -->
+      <section class="card-stage" id="cardStage">
+        <div class="flashcard-wrapper" id="cardWrapper" role="button" aria-label="Flip flashcard">
+          <div class="flashcard-card">
+            
+            <!-- Front Face (Prompt / Question) -->
+            <div class="card-face card-front">
+              <div class="card-top">
+                <span class="tag-badge" id="frontTag">Kanji • N5</span>
+                <button class="audio-btn" id="audioBtn" title="Listen to pronunciation" aria-label="Pronunciation">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="card-body">
+                <div class="card-prompt" id="frontPrompt">
+                  <ruby>日本語<rt>にほんご</rt></ruby>
+                </div>
+                <div class="card-explanation" id="hintText" style="display: none;"></div>
+              </div>
+
+              <div class="card-bottom">
+                <span class="hint-chip" id="hintChip">💡 Show hint</span>
+                <span class="flip-hint">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                  </svg>
+                  Tap to flip
+                </span>
+              </div>
+            </div>
+
+            <!-- Back Face (Answer & Explanation) -->
+            <div class="card-face card-back">
+              <div class="card-top">
+                <span class="tag-badge back-badge" id="backTag">Answer</span>
+                <span style="font-size: 0.75rem; color: #7dd3fc;">SM-2 Interval</span>
+              </div>
+
+              <div class="card-body">
+                <div class="card-subtext" id="backAnswer" style="font-size: 1.5rem; font-weight: 700; color: #ffffff;">
+                  Japanese language
+                </div>
+                <div class="card-explanation" id="backExplanation">
+                  Composed of 日本 (Nihon = Japan) + 語 (go = language).
+                </div>
+              </div>
+
+              <div class="card-bottom">
+                <span style="color: var(--color-brand-accent); font-size: 0.75rem;">Rate your recall:</span>
+                <span class="flip-hint">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                  </svg>
+                  Flip to front
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Session Completion Card (Hidden by default) -->
+      <section class="completion-card" id="completionContainer" style="display: none;">
+        <div class="completion-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #ffffff;">Session Complete! 🎉</h2>
+        <p style="color: var(--color-text-muted); font-size: 0.95rem; max-width: 380px;">
+          You have reviewed all flashcards scheduled for today. Your spaced repetition intervals have been recalculated.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-val" id="statTotal">4</div>
+            <div class="stat-lbl">Cards</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="statAccuracy">100%</div>
+            <div class="stat-lbl">Accuracy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="statTime">15s</div>
+            <div class="stat-lbl">Time</div>
+          </div>
+        </div>
+
+        <button class="btn-reveal" id="btnRestart" style="max-width: 280px; margin-top: 10px;">
+          Review Again 🔄
+        </button>
+      </section>
+
+      <!-- Bottom Interactive Controls -->
+      <footer class="controls-area">
+        <!-- Visible on Card Front -->
+        <div id="frontControls" style="display: flex;">
+          <button class="btn-reveal" id="btnReveal">
+            <span>Reveal Answer</span>
+            <span class="kbd" style="margin-left: 6px;">Space</span>
+          </button>
+        </div>
+
+        <!-- Visible on Card Back (SM-2 Rating Buttons) -->
+        <div class="ratings-grid" id="backControls" style="display: none;">
+          <button class="rating-btn btn-blackout" data-rating="0" title="Complete blackout (Shortcut: 1)">
+            <span class="label">Forgot</span>
+            <span class="interval">1d • 1</span>
+          </button>
+
+          <button class="rating-btn btn-hard" data-rating="2" title="Recalled with effort (Shortcut: 2)">
+            <span class="label">Hard</span>
+            <span class="interval">2d • 2</span>
+          </button>
+
+          <button class="rating-btn btn-good" data-rating="3" title="Good recall (Shortcut: 3)">
+            <span class="label">Good</span>
+            <span class="interval">4d • 3</span>
+          </button>
+
+          <button class="rating-btn btn-easy" data-rating="4" title="Very easy (Shortcut: 4)">
+            <span class="label">Easy</span>
+            <span class="interval">7d • 4</span>
+          </button>
+        </div>
+
+        <!-- Keyboard and Gesture hints -->
+        <div class="shortcuts-hint">
+          <span><span class="kbd">Space</span> flip</span>
+          <span><span class="kbd">1-4</span> rate</span>
+          <span>Swipe sideways on mobile</span>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Study Engine Script -->
+    <script src="./src/views/study/study_page.js"></script>
   </body>
 </html>
-

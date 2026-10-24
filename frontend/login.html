@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="./public/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+    <title>MemorizeMe - Sign In</title>
+
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/assets/styles/main.css" />
+    <link rel="stylesheet" href="./src/assets/styles/auth.css" />
+  </head>
+  <body>
+    <div class="auth-wrapper">
+      <!-- Ambient Visual Glow Orbs matching Logo Colors -->
+      <div class="ambient-glow-1"></div>
+      <div class="ambient-glow-2"></div>
+
+      <!-- Main Login / Register Card -->
+      <main class="auth-card">
+        <!-- Logo Header -->
+        <header class="auth-header">
+          <a href="./index.html" title="Back to Study">
+            <img src="./public/logo.svg" alt="MemorizeMe Logo" />
+          </a>
+          <h1 class="auth-title" id="authTitle">Welcome back! 👋</h1>
+          <p class="auth-subtitle" id="authSubtitle">
+            Access your decks and continue your daily study sessions.
+          </p>
+        </header>
+
+        <!-- Mode Toggle Tabs (Login vs Register) -->
+        <div class="auth-tabs" role="tablist">
+          <button class="tab-btn active" id="tabLogin" role="tab" aria-selected="true">
+            Sign In
+          </button>
+          <button class="tab-btn" id="tabRegister" role="tab" aria-selected="false">
+            Create Account
+          </button>
+        </div>
+
+        <!-- Social Login Options (Supabase Auth Providers) -->
+        <div class="social-grid">
+          <button type="button" class="social-btn" id="btnGoogle" title="Sign in with Google">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
+              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/>
+              <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 10.8 0 12.5s.7 2.8 1.9 5.2l3.7-2.9z"/>
+              <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 17.4C3.7 21.1 7.5 24 12 24z"/>
+            </svg>
+            Google
+          </button>
+
+          <button type="button" class="social-btn" id="btnGithub" title="Sign in with GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            GitHub
+          </button>
+        </div>
+
+        <div class="divider">or continue with email</div>
+
+        <!-- Feedback Alert Banner -->
+        <div class="alert-banner" id="alertBanner" role="alert">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span id="alertText"></span>
+        </div>
+
+        <!-- Auth Form -->
+        <form id="authForm" novalidate>
+          <!-- Name Input (shown in register mode) -->
+          <div class="form-group" id="nameGroup" style="display: none;">
+            <label class="form-label" for="name">Full Name</label>
+            <div class="input-container">
+              <span class="input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              <input
+                type="text"
+                id="name"
+                class="form-input"
+                placeholder="e.g., Alex Morgan"
+                autocomplete="name"
+              />
+            </div>
+          </div>
+
+          <!-- Email Input -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <div class="input-container">
+              <span class="input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <input
+                type="email"
+                id="email"
+                class="form-input"
+                placeholder="your.email@example.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-container">
+              <span class="input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input
+                type="password"
+                id="password"
+                class="form-input"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                class="toggle-password-btn"
+                id="togglePassword"
+                title="Show/Hide password"
+                aria-label="Show or hide password"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirm Password (shown in register mode) -->
+          <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <div class="input-container">
+              <span class="input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input
+                type="password"
+                id="confirmPassword"
+                class="form-input"
+                placeholder="Re-enter your password"
+                autocomplete="new-password"
+              />
+            </div>
+          </div>
+
+          <!-- Extra Options (Remember Me & Forgot Password) -->
+          <div class="form-extra" id="formExtra">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMe" checked />
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+          </div>
+
+          <!-- Action Submit Button -->
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="spinner" id="submitSpinner" style="display: none;"></span>
+            <span id="submitBtnText">Sign In</span>
+          </button>
+        </form>
+      </main>
+
+      <!-- Bottom Navigation Footer -->
+      <footer class="auth-footer">
+        <p>
+          MemorizeMe Flashcards • <a href="./index.html">Jump directly to Study</a>
+        </p>
+      </footer>
+    </div>
+
+    <!-- Auth Script -->
+    <script src="./src/views/auth/auth_page.js"></script>
+  </body>
+</html>
