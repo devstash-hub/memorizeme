@@ -1,3 +1,12 @@
+<style>
+  a {
+    text-decoration: none !important;
+  }
+  a:hover {
+    text-decoration: none !important;
+  }
+</style>
+
 <div align="center">
   <img src="./assets/branding/logo.svg" alt="MemorizeMe Logo" width="420" />
   <br />
