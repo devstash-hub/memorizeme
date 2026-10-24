@@ -1,4 +1,4 @@
-# MemorizeMe Asset Directory 🎨🖼️
+# MemorizeMe Asset Directory 
 
 This directory contains visual brand assets, logos, icons, and media used throughout the project and its documentation.
 
@@ -38,3 +38,4 @@ You can embed these assets directly in `README.md` using relative Markdown links
 ```markdown
 ![System Architecture](./assets/docs/diagrams/architecture.png)
 ```
+

@@ -1,8 +1,19 @@
-<p align="center">
-  <img src="./assets/branding/logo.svg" alt="MemorizeMe Logo" width="360" />
-</p>
+<div align="center">
+  <img src="./assets/branding/logo.svg" alt="MemorizeMe Logo" width="420" />
+  <br />
+  <p>
+    <strong>Active Recall &bull; Spaced Repetition &bull; Multi-Language &bull; Supabase &bull; FastAPI</strong>
+  </p>
+  <p>
+    <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.11+" />
+    <img src="https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI" />
+    <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase PostgreSQL" />
+    <img src="https://img.shields.io/badge/Mobile-WebView%20Ready-6366F1?style=flat-square&logo=capacitor&logoColor=white" alt="Mobile Ready" />
+    <img src="https://img.shields.io/badge/Unicode-Japanese%20CJK%20Ready-EC4899?style=flat-square" alt="Unicode Ready" />
+  </p>
+</div>
 
-# MemorizeMe 🧠🗂️
+<br />
 
 > An intelligent, extensible, and flexible flashcard system designed for active recall, spaced repetition, deck sharing, and international language learning (including Japanese / CJK). Powered by **FastAPI**, **Supabase (PostgreSQL)**, and **Supabase Auth**.
 
